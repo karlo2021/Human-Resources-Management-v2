@@ -1,0 +1,27 @@
+<header>
+  <mat-toolbar color="primary" [class.bg-dark]="isLoggedIn">
+    <button mat-icon-button [routerLink]="['/']">
+      <mat-icon>
+        home
+      </mat-icon>
+    </button>
+    <a mat-flat-button *ngIf="!isLoggedIn" color="primary" [routerLink]="['/persons']">
+      Persons
+    </a>
+    <button *ngIf="isLoggedIn" class="btn btn-dark" [routerLink]="['/admin/main/persons']">
+      Persons
+    </button>
+    <button mat-flat-button *ngIf="!isLoggedIn" color="primary" [routerLink]="['/meetings']">
+      Meetings
+    </button>
+    <span class="separator"></span>
+    <button *ngIf="!isLoggedIn" class="btn btn-warning m-1" [routerLink]="['/admin']">
+      Admin
+    </button>
+    <button *ngIf="isLoggedIn" class="btn btn-danger m-1" [routerLink]="['/']" (click)="onLogout()">
+      Logout
+    </button>
+
+    <button *ngIf="isLoggedIn" class="btn btn-danger m-1" [routerLink]="['/test']">Test</button>
+  </mat-toolbar>
+</header>

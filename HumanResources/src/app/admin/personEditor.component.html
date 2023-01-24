@@ -1,0 +1,85 @@
+<h2 class="heading ms-2">{{editing ? "Edit" : "Create"}} Person</h2>
+
+<div class="bg-danger mt-2 p-2 text-center text-white" *ngIf="errorMessage != null">
+  {{errorMessage}}
+</div>
+<form #form="ngForm" novalidate (ngSubmit)="save(form)" class="form-control">
+  <mat-form-field *ngIf="editing">
+    <mat-label>ID</mat-label>
+    <input matInput name="id" [(ngModel)]="person.id" disabled />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput name="name" [(ngModel)]="person.name"/>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <input matInput name="category" [(ngModel)]="person.category" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Birth</mat-label>
+    <input matInput type="date" name="birth" [(ngModel)]="person.birth" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Rating</mat-label>
+    <input type="number" matInput name="rating" [(ngModel)]="person.rating" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput name="description" [(ngModel)]="person.description" />
+  </mat-form-field>
+
+
+  <button type="submit" class="btn btn-danger me-2">
+    {{editing ? "Save" : "Create"}}
+  </button>
+  
+  <button type="reset" mat-stroked-button routerLink="/admin/main/persons">
+    Cancel
+  </button>
+</form>
+
+<div *ngIf="editing" style="padding-top: 3px; margin-top: 1rem" class="form-control">
+  <h2 class="m-1 ms-2">Meetings</h2>
+  <button *ngIf="editing" class="btn btn-danger mx-2"
+          [routerLink]="['/admin/main/persons/edit', person.id, 'meetings']">
+    Create Meeting
+  </button>
+
+  <div class="p-2 text-dark mt-3">
+    <div *ngFor="let meeting of person.meetings" class="card  p-2 mb-1 bg-light">
+      <div class="mb-2">
+        <span class="navbar-brand mb-1">{{meeting.name}}</span>
+      </div>
+      <div>
+        Address: <em>{{meeting.address}}</em><br />
+        Interview  Date: <em>{{meeting.interviewDate | date:'shortDate'}}</em><br />
+        Description: <br />
+        <textarea disabled rows="2" cols="40">{{meeting.description}}</textarea><br />
+        Rating: <em>{{meeting.rating}}</em><br />
+        Employment Date: <em>{{meeting.employmentDate | date:'shortDate'}}</em><br />
+        <div>
+          <label class="me-2">Employed:</label>
+          <input class="form-check-input" type="checkbox" [(ngModel)]="meeting.employed" disabled />
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: row; margin-top: 1rem;">
+        <button class="btn btn-danger"
+                [routerLink]="['/admin/main/persons/edit', person.id, 'meetings', meeting.id]">
+          Edit
+        </button>
+        <span class="mx-1"></span>
+        <button class="btn btn-dark" (click)="deleteMeeting(meeting.id)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

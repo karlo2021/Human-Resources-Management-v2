@@ -1,0 +1,31 @@
+<form (ngSubmit)="submit(form)" #form="ngForm">
+  <div *ngIf="person.id">
+    <label>Id</label>
+    <input [(ngModel)]="person.id" disabled name="id" />
+
+  </div>
+  <div>
+    <label>Name</label>
+    <input [(ngModel)]="person.name" #name="ngModel" name="name" />
+  </div>
+
+  <div>
+    <label>Birth</label>
+    <input type="date" [(ngModel)]="person.birthS" name="birthS" /><br />
+    <input disabled value="{{person.birthS | date:'shortDate'}}" name="birth" /><br />
+  </div>
+
+  <button type="submit" >Submit</button>
+</form>
+
+{{ person.birth | date }}
+<br />
+{{ person.birth | date:"shortDate" }}
+<br />
+{{ person.birth | date:"longDate":"UTC":"hr-HR" }}
+<br />
+{{ person.birth | date:"longDate":"UTC" }}
+
+<div class="bg-info p-2 text-white">
+  <div><pre><p>{{ person | json }}</p></pre></div>
+</div>

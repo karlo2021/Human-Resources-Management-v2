@@ -1,0 +1,64 @@
+<h1 id="tableLabel">Human Resources</h1>
+<p>This component demonstrates fetching data from the server.</p>
+<p *ngIf="!persons">
+  <em>
+    Loading... Please refresh once the ASP.NET backend
+    has started.
+  </em>
+</p>
+
+<mat-form-field [hidden]="!persons">
+  <input matInput #filter (keyup)="loadData(filter.value)" placeholder="Filter by name (or part of it)..."/>
+</mat-form-field>
+
+<table mat-table [dataSource]="persons"
+       class="mat-elevation-z8"
+       [hidden]="!persons"
+       matSort (matSortChange)="loadData()"
+       [matSortActive]="defaultSortColumn"
+       [matSortDirection]="defaultSortOrder">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let person">{{person.id}}</td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let person">{{person.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+    <td mat-cell *matCellDef="let person">{{person.category}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="birth">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Birth</th>
+    <td mat-cell *matCellDef="let person">{{person.birth}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="rating">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rating</th>
+    <td mat-cell *matCellDef="let person">{{person.rating}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let person">{{person.description}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+</table>
+
+<mat-paginator [hidden]="!persons"
+               [pageSize]="4"
+               [pageSizeOptions]="[3, 4, 6, 8]"
+               (page)="getData($event)"
+               showFirstLastButtons></mat-paginator>
+
+

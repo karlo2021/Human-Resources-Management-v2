@@ -1,0 +1,60 @@
+<h2 class="heading">{{meetingId ? "Edit" : "Create"}} Meeting</h2>
+
+<form (ngSubmit)="save()" class="form-control">
+  <mat-form-field *ngIf="meeting.personId">
+    <mat-label>ID</mat-label>
+    <input matInput name="id" [(ngModel)]="meeting.id" disabled />
+  </mat-form-field>
+  <mat-form-field *ngIf="meeting.id">
+    <mat-label>Person ID</mat-label>
+    <input matInput name="personId" [(ngModel)]="meeting.personId" disabled />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput name="name" [(ngModel)]="meeting.name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Address</mat-label>
+    <input matInput name="address" [(ngModel)]="meeting.address" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Interview Date</mat-label>
+    <input matInput type="date" name="interviewDate" [(ngModel)]="meeting.interviewDate" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput name="description" [(ngModel)]="meeting.description" />
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Rating</mat-label>
+    <input type="number" matInput name="rating" [(ngModel)]="meeting.rating" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Employment Date</mat-label>
+    <input matInput type="date" name="employmentDate" [(ngModel)]="meeting.employmentDate" />
+  </mat-form-field>
+
+  <mat-label class="me-2">Employed</mat-label>
+  <mat-checkbox [(ngModel)]="meeting.employed" name="employed">
+
+  </mat-checkbox>
+
+  <div class="mt-3">
+    <button type="submit" class="btn btn-danger me-2">
+      {{meetingId ? "Save" : "Create"}}
+    </button>
+    <button type="reset" mat-stroked-button [routerLink]="['/admin/main/persons/edit/', personId]">
+      Cancel
+    </button>
+  </div>
+  
+
+
+</form>

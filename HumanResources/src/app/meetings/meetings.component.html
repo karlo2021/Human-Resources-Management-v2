@@ -1,0 +1,67 @@
+<h1>Meetings</h1>
+<p *ngIf="!meetings"><em>Loading...</em></p>
+
+<mat-form-field [hidden]="!meetings">
+  <input matInput #filter (keyup)="loadData(filter.value)"
+         placeholder="Filter by name (or part of it)...">
+</mat-form-field>
+
+<table mat-table [dataSource]="meetings"
+       class="mat-elevation-z8"
+       [hidden]="!meetings"
+       matSort (matSortChange)="loadData()"
+       [matSortActive]="defaultSortColumn"
+       [matSortDirection]="defaultSortOrder">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.address}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="interviewDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Interview Date</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.interviewDate}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.description}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rating">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rating</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.rating}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="employmentDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Employment Date</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.employmentDate}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="employed">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Employed</th>
+    <td mat-cell *matCellDef="let meeting"> {{meeting.employed}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+
+
+<mat-paginator [hidden]="!meetings"
+               (page)="getData($event)"
+               [pageSize]="4"
+               [pageSizeOptions]="[3, 4, 6, 8]"
+               showFirstLastButton></mat-paginator>
